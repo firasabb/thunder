@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\EntryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,4 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::prefix('entry')->as('entry.')->group(function () {
+    Route::get('/create', [EntryController::class, 'create'])->name('create');
+});
+
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

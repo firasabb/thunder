@@ -46,54 +46,103 @@ class AdminPageController extends Controller
     }
 
 
+    
+    /**
+     * 
+     * Show the create or update page
+     * @param Request
+     * @return View
+     * 
+     */
+    public function create(Request $request){
+        $page = null;
+        if($request->id){
+            $page = Page::findOrFail($request->id);
+        }
+
+        $availableStatuses = Page::STATUSES;
+
+        return view('admin.pages.create', [
+            'page'                  => $page,
+            'availableStatuses'     => $availableStatuses,
+        ]);
+    }
+
+
     /**
      * Add a category for admins.
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, $id = null)
     {
 
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'title'     => 'required|string|max:255',
             'url'       => 'nullable|string|max:255',
             'body'      => 'nullable|string',
-            'featured'  => 'nullable|image|max:3000'
+            'status'    => ['required', Rule::in(Page::STATUSES)],
+            'featured'  => 'nullable|image|max:3000',
         ]);
 
-        if($validator->fails()){
-            return back()->withErrors($validator)->withInput();
-        } 
+        if($id){
+            $page = Page::findOrFail($request->id);
+        } else {
+            $page = new Page();
+        }
 
-        $page = new Page();
         $page->title = $request->title;
+
+        // Check the url
         $pageUrl = $request->url ?? strtolower($request->title);
+        $pageUrl = Str::limit($pageUrl, 100, '');
         $pageUrl = Str::slug($pageUrl, '-');
-        $check = Page::where(['url' => $pageUrl])->first();
+        $check = Page::where([['url', $pageUrl]])->first();
         if(!empty($check)){
-            return redirect()->route('admin.index.categories')->withErrors('The url has already been taken.')->withInput();
+            // Check if the url is the same as the current page
+            if($check->id != $page->id){
+                return back()->withErrors('The url has already been taken.')->withInput();
+            }
         }
 
         $page->url = $pageUrl;
         $page->body = $request->body;
+        $page->status = $request->status;
         $page->save();
 
         if($request->hasFile('featured')) {
             if($request->file('featured')->isValid()) {
+
+                // Delete the old featured image if it exists
+                if($page->featured){
+                    $page->featured->delete();
+                }
+
                 $unique = uniqid();
                 $filename = $unique . '.' . $request->file('featured')->getClientOriginalExtension();
                 $page->addMediaFromRequest('featured')
                      ->usingFileName($filename)
                      ->usingName($unique)
-                     ->withResponsiveImages()
-                     ->toMediaCollection('featured', 's3_media');
+                     ->toMediaCollection('featured', 'public');
             }
         }
 
-        return back()->with('status', 'A new page has been created!');
+        return back()->with('message', 'A new page has been created!');
 
     }
 
+
+    /**
+     * 
+     * Get the page info
+     * @param Request
+     * @return JSON
+     * 
+     */
+    public function get(Request $request){
+        $page = Page::where('id', $request->id)->firstOrFail();
+        return response()->json($page);
+    }
 
 
     /**

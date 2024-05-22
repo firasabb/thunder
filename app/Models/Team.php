@@ -4,23 +4,41 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Team extends CustomModel
+class Team extends CustomModel implements HasMedia
 {
-    use HasFactory;
+    use HasFactory,
+        InteractsWithMedia;
 
     protected $fillable = [
         'uuid',
-        'title',
+        'name',
+        'slug',
+        'abbreviation',
         'short_description',
         'description',
+        'logo_url',
+    ];
+
+    protected $appends = [
+        'featured'
     ];
 
     /**
      * Get the conferences for the team.
     */
     public function conferences(){
-        return $this->belongsToMany(Conference::class, 'conference_teams', 'team_id', 'conference_id');
+        return $this->belongsToMany(Conference::class, 'conference_team', 'team_id', 'conference_id');
+    }
+
+    public function getFeaturedAttribute(){
+        $media = null;
+        if($this->hasMedia('featured')){
+            $media = $this->getFirstMedia('featured');
+        }
+        return $media;
     }
 
 }

@@ -11,7 +11,7 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li>
-                            <a href="{{ route('page.show', ['url' => 'contact-us']) }}" class="hover:underline">{{ __('front.contact us') }}</a>
+                            <a href="{{ route('page.show', ['url' => 'contact-us']) }}" class="hover:underline">{{ __('main.contact us') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -19,13 +19,13 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li>
-                            <a href="{{ route('page.show', ['url' => 'privacy-policy']) }}" class="hover:underline">{{ __('front.privacy policy') }}</a>
+                            <a href="{{ route('page.show', ['url' => 'privacy-policy']) }}" class="hover:underline">{{ __('main.privacy policy') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('page.show', ['url' => 'terms-of-service']) }}" class="hover:underline">{{ __('front.terms of service') }}</a>
+                            <a href="{{ route('page.show', ['url' => 'terms-of-service']) }}" class="hover:underline">{{ __('main.terms of service') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('page.show', ['url' => 'cookie-policy']) }}" class="hover:underline">{{ __('front.cookie policy') }}</a>
+                            <a href="{{ route('page.show', ['url' => 'cookie-policy']) }}" class="hover:underline">{{ __('main.cookie policy') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -34,6 +34,10 @@
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div class="sm:flex sm:items-center sm:justify-between">
             <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">&copy;{{ date("Y") }}. All rights reserverd
+            </span>
+        </div>
+        <div>
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Created with <a href="" class="text-blue-500">Quetab Panel</a>
             </span>
         </div>
     </div>

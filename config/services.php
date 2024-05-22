@@ -34,6 +34,11 @@ return [
     'recaptcha' => [
         'site_key'  => env('RECAPTCHA_SITE_KEY'),
         'secret'    => env('RECAPTCHA_SECRET')
-    ]
+    ],
+
+    'college_football_data' => [
+        'api_key' => env('COLLEGE_FOOTBALL_DATA_API_KEY', 'X1D1XgldmGvcG9m3nARR0WTVkCjrjJjh93bPv+JVetYiAnoLwXkiZOZEyXQuf/QW'),
+        'base_url' => env('COLLEGE_FOOTBALL_DATA_BASE_URL', 'https://api.collegefootballdata.com'),
+    ],
 
 ];

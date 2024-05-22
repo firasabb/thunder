@@ -11,9 +11,12 @@ class Conference extends CustomModel
 
     protected $fillable = [
         'uuid',
-        'title',
+        'name',
+        'slug',
+        'abbreviation',
         'short_description',
         'description',
+        'logo_url',
     ];
 
 
@@ -21,6 +24,6 @@ class Conference extends CustomModel
      * Get the teams for the conference.
      */
     public function teams(){
-        return $this->belongsToMany(Team::class, 'conference_teams', 'conference_id', 'team_id');
+        return $this->belongsToMany(Team::class, 'conference_team', 'conference_id', 'team_id');
     }
 }

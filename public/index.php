@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 define('LARAVEL_START', microtime(true));
 
@@ -53,3 +54,14 @@ $response = $kernel->handle(
 )->send();
 
 $kernel->terminate($request, $response);
+
+
+// Read the routes and migrations files in the root directory, theme.
+$activeTheme = Setting::where('name', 'active_theme')->first();
+if($activeTheme){
+    $theme = dirname(__DIR__) . '/themes/' . $activeTheme->value;
+    $bootstrap = $theme . '/bootstrap.php';
+    $routes = $theme . '/routes.php';
+    $migrations = $theme . '/migrations.php';
+}
+

@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('conferences', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('title', 255)->nullable();
-            $table->string('url', 255)->unique();
+            $table->string('name', 255)->nullable();
+            $table->string('slug', 255)->nullable();
+            $table->string('abbreviation', 255)->nullable();
+            $table->string('url', 255)->nullable();
             $table->string('short_description', 255)->nullable();
             $table->text('description')->nullable();
+            $table->string('logo_url', 255)->nullable();
+            $table->string('status', 255)->nullable();
             $table->timestamps();
         });
     }

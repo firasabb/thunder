@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('url');
             $table->longText('body')->nullable();
             $table->string('status')->default('published');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
