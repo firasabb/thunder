@@ -22,6 +22,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('logo_url', 255)->nullable();
             $table->string('status', 255)->nullable();
+            $table->string('city', 255)->nullable();
+            $table->string('state', 255)->nullable();
             $table->timestamps();
         });
     }

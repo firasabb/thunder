@@ -13,3 +13,9 @@
 .bg-dark-blue{
     background-color: #1a202c;
 }
+
+
+label.required:after{
+    color: #fc3232;
+    content: " *";
+}

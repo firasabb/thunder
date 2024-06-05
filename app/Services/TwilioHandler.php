@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Twilio;
+use App\Models\VerificationCode;
 
 class TwilioHandler{
 
@@ -18,16 +19,41 @@ class TwilioHandler{
     }
 
 
-    public function sendMessage($phone, $message){
+    public static function sendMessage($phone, $message){
 
         try{
             $response = Twilio::message($phone, $message);
         } catch(\Exception $e){
-            return $e->getMessage();
+            dd($e);
+            return null;
         }
 
         return $response;
 
+    }
+
+
+    /**
+     * 
+     * Send verification code
+     * 
+     */
+    public static function sendVerificationCode($phone){
+
+        $verificationCode = rand(1000, 9999);
+        $message = 'Your verification code is: ' . $verificationCode;
+
+        $response = self::sendMessage($phone, $message);
+        if(!$response){
+            return null;
+        }
+
+        $verificationCode = VerificationCode::create([
+            'phone' => $phone,
+            'code' => $verificationCode
+        ]);
+
+        return $response;
     }
 
 }

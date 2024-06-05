@@ -31,7 +31,7 @@ Route::get('/dashboard', function () {
  * 
  */
 Route::get('/page/{url}', [PageController::class, 'show'])->name('page.show');
-
+Route::post('/page/contact-us', [PageController::class, 'contact'])->name('page.contact');
 
 
 Route::middleware('auth')->group(function () {
@@ -43,6 +43,11 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('entry')->as('entry.')->group(function () {
     Route::get('/create', [EntryController::class, 'create'])->name('create');
+    Route::post('/create', [EntryController::class, 'store'])->name('store');
+    Route::get('/video', [EntryController::class, 'video'])->name('video');
+    Route::get('/verify/{entry?}', [EntryController::class, 'verify'])->name('verify');
+    Route::get('/verify/{entry?}/store', [EntryController::class, 'verifyEntry'])->name('verify.store');
+    Route::get('/success/{entry?}', [EntryController::class, 'success'])->name('success');
 });
 
 require __DIR__.'/auth.php';

@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('verification_codes', function (Blueprint $table) {
             $table->id();
+            $table->string('phone', 255);
+            $table->string('code', 255);
+            $table->unsignedBigInteger('entry_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('entry_id')->references('id')->on('entries')->onDelete('set null');
         });
     }
 

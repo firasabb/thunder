@@ -14,7 +14,10 @@
         @endif
     </div>
     <div class="relative group dropdown-group">
-        <button class="select-dropdown-btn inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
+        <div class="selected-teams">
+
+        </div>
+        <button type="button" class="select-dropdown-btn inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
             @if(isset($conference))
                 <span class="mr-2">Choose {{ $conference->name }} Team</span>
             @else
@@ -30,7 +33,7 @@
             <input id="search-input" class="search-input block w-full px-4 py-2 text-gray-800 border rounded-md  border-gray-300 focus:outline-none" type="text" placeholder="Search items" autocomplete="off">
             <!-- Dropdown content goes here -->
             @foreach($teams as $team)
-                <button class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md">
+                <button type="button" class="item-button block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md" data-team="{{$team->id}}">
                     @if($team->logo_url)
                         <img src="{{ $team->logo_url }}" class="w-5 h-5 inline-block mr-2">
                     @endif

@@ -17,6 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('contest_id')->nullable();
             $table->string('confirmation_code', 255)->nullable();
+            $table->string('email', 255)->nullable();
+            $table->string('name', 255)->nullable();
+            $table->string('phone', 255)->nullable();
+            $table->timestamp('verified_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

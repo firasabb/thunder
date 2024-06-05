@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class VerificationCode extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['phone', 'code', 'entry_id'];
+
+
+    public function entry(){
+        return $this->belongsTo(Entry::class);
+    }
 }

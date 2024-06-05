@@ -32,8 +32,14 @@ return [
     ],
 
     'recaptcha' => [
-        'site_key'  => env('RECAPTCHA_SITE_KEY'),
+        'key'  => env('RECAPTCHA_SITE_KEY'),
         'secret'    => env('RECAPTCHA_SECRET')
+    ],
+
+    'twilio' => [
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
+        'from' => env('TWILIO_PHONE_NUMBER'),
     ],
 
     'college_football_data' => [

@@ -1,24 +1,48 @@
-    @push('head_scripts')
+@push('head_scripts')
 
-        
-    @endpush
+    
+@endpush
 
 
-    <x-app-layout>
+<x-app-layout>
+    <div class="flex justify-center items-center py-5">
+        <div class="container mx-auto w-100 w-4/12">
+            <div class="mb-5">
+                <h1 class="text-2xl font-semibold text-gray-900">The Road To Jansanity $1 Million Playoff Challenge!</h1>
+            </div>
 
-        <div class="flex justify-center items-center py-5">
-            <div class="container mx-auto w-100 w-4/12">
-                <div class="mb-5">
-                    <h1 class="text-2xl font-semibold text-gray-900">The Road To Jansanity $1 Million Playoff Challenge!</h1>
-                </div>
+            <div class="mb-10">
+                {!! $description !!}
 
-                <div class="mb-10">
-                    {!! $description !!}
-                </div>
+                <!-- Errors -->
+                @if ($errors->any())
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-red-50 border-l-8 border-red-900">
+                            <div class="flex items-center">
+                                <div class="p-2">
+                                    <div class="flex items-center">
+                                        <p class="px-6 py-4 text-red-900 font-semibold text-lg">Please fix the
+                                            following
+                                            errors.</p>
+                                    </div>
+                                    <div class="px-16 mb-4">
+                                        @foreach ($errors->all() as $error)
+                                            <li class="text-md font-bold text-red-500 text-sm">{{ $error }}</li>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
 
-                <div class="mb-3">
-                    <h1 class="text-xl font-semibold text-gray-900">Submit your Entry:</h1>
-                </div>
+
+            <div class="mb-3">
+                <h1 class="text-xl font-semibold text-gray-900">Submit your Entry:</h1>
+            </div>
+            <form action="{{ route('entry.store') }}" method="POST">
+                @csrf
                 <div class="">
                     <div class="mb-3">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -46,13 +70,30 @@
 
                     <x-forms.dropdown :teams="$teams" :conferences="$activeConferences"></x-forms.dropdown>
 
-                    <div class="my-5">
-                        <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Submit</button>
+                    <!-- RECAPTCHA -->
+                    <div class="my-4">
+                        <div id="recaptcha"></div>
                     </div>
-
-                </div>
+                
+                    <div class="my-5">
+                        <button class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
-    </x-app-layout>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+            async defer>
+    </script>
+    <script type="text/javascript">
+        var onloadCallback = function () {
+            grecaptcha.render('recaptcha', {
+                'sitekey': "{{ config('services.recaptcha.key') }}"
+            });
+        };
+
+    </script>
+
+</x-app-layout>
 

@@ -22,11 +22,15 @@ class TeamsTableSeeder extends Seeder
         foreach($teams as $team){
 
             $logo = isset($team['logos']) && count($team['logos']) ? $team['logos'][0] : null;
+            $city = isset($team['location']) && isset($team['location']['city']) ? $team['location']['city'] : null;
+            $state = isset($team['location']) && isset($team['location']['state']) ? $team['location']['state'] : null;
 
             $newTeam = Team::create([
                 'name'          => $team['school'],
                 'abbreviation'  => $team['abbreviation'],
                 'logo_url'      => $logo,
+                'city'          => $city,
+                'state'         => $state,
             ]);
 
             if($logo){

@@ -1,0 +1,52 @@
+{
+    "name": "quetab/quetab-panel",
+    "description": "An admin panel to boost your pace.",
+    "homepage": "https://quetab.com",
+    "authors": [
+        {
+            "name": "Quetab LLC",
+            "email": "admin@quetab.com"
+        }
+    ],
+    "type": "library",
+    "license": "GNU",
+    "autoload": {
+        "psr-4": {
+            "Quetab\\QuetabPanel\\": "src/"
+
+        },
+        "classmap": ["src/"]
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.0|^8.1|^8.2",
+        "laravel/framework": "^8.0|^9.0|^10.0|^11.0",
+        "spatie/laravel-medialibrary": "^10.15",
+        "spatie/laravel-permission": "^6.7"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Quetab\\QuetabPanel\\QuetabPanelServiceProvider"
+            ]
+        },
+        "aliases": {
+            "QuetabPanel": "Quetab\\QuetabPanel\\Facede\\QuetabPanelFacade"
+        }
+    },
+    "keywords": [
+        "quetab",
+        "quetab panel",
+        "quetab admin panel",
+        "quetab admin",
+        "admin panel",
+        "laravel admin panel",
+        "Open Source",
+        "admin",
+        "panel",
+        "laravel",
+        "github",
+        "AI",
+        "Artificial Intelligence"
+    ]
+}

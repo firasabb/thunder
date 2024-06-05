@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Page;
 use App\Models\SupportMessage;
+use App\Models\Entry;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
@@ -29,13 +30,9 @@ class AdminController extends Controller
         $fromDate = Carbon::now()->subWeek();
 
         $totalUserCount = User::count();
-        $weeklyUserCount = User::selectRaw('DATE(created_at) as y, COUNT(*) as x')
-            ->where('created_at', '>', Carbon::now()->subYears(2))
-            ->groupBy('y')
-            ->get();
-        
         $totalPageCount = Page::count();
         $totalMessageCount = SupportMessage::count();
+        $totalEntryCount = Entry::count();
 
         $lastMessages = SupportMessage::orderBy('id', 'desc')->take(10)->get();
 
@@ -43,8 +40,8 @@ class AdminController extends Controller
             'totalUserCount'        =>  $totalUserCount,
             'totalMessageCount'     =>  $totalMessageCount,
             'totalPageCount'        =>  $totalPageCount,
-            'weeklyUserCount'       =>  $weeklyUserCount,
-            'lastMessages'          =>  $lastMessages
+            'lastMessages'          =>  $lastMessages,
+            'totalEntryCount'       =>  $totalEntryCount
         ]);
     }
 

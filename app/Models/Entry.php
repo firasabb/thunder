@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entry extends CustomModel implements HasMedia
 {
     use HasFactory,
-        InteractsWithMedia;
+        InteractsWithMedia,
+        SoftDeletes;
 
 
     protected $fillable = [
@@ -18,6 +20,9 @@ class Entry extends CustomModel implements HasMedia
         'title',
         'short_description',
         'description',
+        'phone',
+        'email',
+
     ];
 
     /**
@@ -25,5 +30,15 @@ class Entry extends CustomModel implements HasMedia
     */
     public function contest(){
         return $this->belongsTo(Contest::class);
+    }
+
+
+    /**
+     * 
+     * Verification Code
+     * 
+     */
+    public function verificationCode(){
+        return $this->hasOne(VerificationCode::class);
     }
 }
