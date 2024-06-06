@@ -1,6 +1,6 @@
 <div>
     @foreach($conferences as $conference)
-        <div class="mb-3">
+        <div class="mb-10">
             <x-forms.dropdown-input :teams="$teams" :conference="$conference" />
         </div>
     @endforeach
@@ -79,7 +79,6 @@
                         if (selectedTeams.length >= maxTeams) {
                             return;
                         }
-                        dropdownButton.classList.add('flex-col');
                         selectedTeams.push(item.outerHTML);
                         item.classList.toggle('hidden');
                         teamsInput.value = selectedTeams.map((team) => {
@@ -88,7 +87,7 @@
                         }).join(',');
 
                         // add the selected team to the selected teams div
-                        selectedTeamsDiv.innerHTML = selectedTeams.join('<br>');
+                        selectedTeamsDiv.innerHTML = selectedTeams.join('');
                     } else {
                         selectedTeams = item.outerHTML;
                         selectedTeamsDiv.innerHTML = selectedTeams;

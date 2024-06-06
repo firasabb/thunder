@@ -24,9 +24,6 @@
                         <li>
                             <a href="{{ route('page.show', ['url' => 'terms-of-service']) }}" class="hover:underline">{{ __('main.terms of service') }}</a>
                         </li>
-                        <li>
-                            <a href="{{ route('page.show', ['url' => 'cookie-policy']) }}" class="hover:underline">{{ __('main.cookie policy') }}</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -36,15 +33,5 @@
             <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">&copy;{{ date("Y") }}. All rights reserverd
             </span>
         </div>
-        <div>
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Created with <a href="" class="text-blue-500">Quetab Panel</a>
-            </span>
-        </div>
     </div>
 </footer>
-
-
-
-@guest
-    @include('cookie-consent::index')
-@endguest

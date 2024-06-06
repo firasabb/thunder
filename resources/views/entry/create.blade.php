@@ -38,22 +38,22 @@
             </div>
 
 
-            <div class="mb-3">
+            <div class="mb-5">
                 <h1 class="text-xl font-semibold text-gray-900">Submit your Entry:</h1>
             </div>
             <form action="{{ route('entry.store') }}" method="POST">
                 @csrf
                 <div class="">
-                    <div class="mb-3">
+                    <div class="mb-5">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                         <span class="text-xs text-gray-500">A confirmation number will be sent to your email after you submit your entry.</span>
                         <input type="text" name="email" id="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-5">
                         <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                         <input type="text" name="name" id="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
-                    <div class="mb-5">
+                    <div class="mb-10">
                         <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                         <div class="flex">
                             <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
