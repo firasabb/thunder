@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('entry_id')->nullable();
             $table->unsignedBigInteger('team_id')->nullable();
+            $table->string('conference')->nullable();
             $table->timestamps();
 
             $table->foreign('entry_id')->references('id')->on('entries')->onDelete('set null');

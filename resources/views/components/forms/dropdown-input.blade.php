@@ -1,16 +1,22 @@
 <div class="">
+    @php
+        if($multiple == 'true'){
+            $multiple = 'multiple';
+        } else {
+            $multiple = '';
+        }
+
+        if(isset($conference) && $conference){
+            $teams = $conference->teams()->get();
+        }
+    @endphp
     <div>
-        @if(isset($conference))
-            <span class="text-sm">{{ $conference->name }} Teams:</span>
-            @php
-                $multiple = '';
-                $teams = $conference->teams;
-            @endphp
+        @if(isset($title) && $title)
+            <span class="mr-2 text-sm font-medium">{{ $title }}</span>
         @else
-            <span class="text-sm">Choose 8 Other Teams:</span>
-            @php
-                $multiple = 'multiple';
-            @endphp
+            @if(isset($conference))
+                <span class="mr-2 text-sm font-medium">Choose {{ $conference->name }} Team</span>
+            @endif
         @endif
     </div>
     <div class="relative group dropdown-group">
@@ -18,10 +24,12 @@
 
         </div>
         <button type="button" class="select-dropdown-btn inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-            @if(isset($conference))
-                <span class="mr-2">Choose {{ $conference->name }} Team</span>
+            @if(isset($title) && $title)
+                <span class="mr-2">{{ $title }}</span>
             @else
-                <span class="mr-2">Choose Other Teams</span>
+                @if(isset($conference))
+                    <span class="mr-2">Choose {{ $conference->name }} Team</span>
+                @endif
             @endif
             
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -42,9 +50,9 @@
             @endforeach
 
             @if(isset($conference))
-                <input class="teams_input" type="hidden" name="{{ $conference->name }}" value="">
-            @else
-                <input class="teams_input" type="hidden" name="teams" value="">
+                <input class="teams_input" type="hidden" name="{{ $conference->abbreviation }}" value="">
+            @elseif(isset($inputName) && $inputName)
+                <input class="teams_input" type="hidden" name="{{ $inputName }}" value="">
             @endif
         </div>
     </div>

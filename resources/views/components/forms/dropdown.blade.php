@@ -1,10 +1,15 @@
 <div>
     @foreach($conferences as $conference)
         <div class="mb-10">
-            <x-forms.dropdown-input :teams="$teams" :conference="$conference" />
+            <x-forms.dropdown-input :teams="$teams" :conference="$conference" multiple="" input-name="" />
         </div>
     @endforeach
-    <x-forms.dropdown-input :teams="$teams" />
+    <div class="mb-10">
+        <x-forms.dropdown-input :teams="$teamsOtherConferences" title="Choose a Team from All Conferences" multiple="" input-name="other" />
+    </div>
+    <div class="mb-10">
+        <x-forms.dropdown-input :teams="$otherTeams" title="Choose 8 Teams from All Teams" multiple="true" input-name="all" />
+    </div>
     <script>
         // JavaScript to toggle the dropdown
         var dropdownGroups = document.querySelectorAll('.dropdown-group');
@@ -16,7 +21,7 @@
             var searchInput = group.querySelector('.search-input');
             var teamsInput = group.querySelector('.teams_input');
             var selectedTeamsDiv = group.querySelector('.selected-teams');
-            var selectedItems = selectedTeamsDiv.querySelectorAll('.active');
+            var selectedItems = selectedTeamsDiv.querySelectorAll('.item-button');
             var items = group.querySelectorAll('.item-button');
             var selectedTeams = [];
             let isOpen = false;
@@ -94,6 +99,7 @@
                         teamsInput.value = teamId;
                         toggleDropdown();
                     }
+                    selectedItemsOnClick();
                 });
             });
 
@@ -103,11 +109,24 @@
                 }
             });
         
-            selectedItems.forEach((item) => {
-                item.addEventListener('click', () => {
-                    item.classList.remove('active');
+            function selectedItemsOnClick(){
+                selectedItems = selectedTeamsDiv.querySelectorAll('.item-button');
+                selectedItems.forEach((selectedItem) => {
+                    selectedItem.addEventListener('click', () => {
+                        items.forEach((item) => {
+                            if(selectedItem.getAttribute('data-team') === item.getAttribute('data-team')){
+                                item.classList.remove('hidden');
+                            }
+                        });
+                        // remove the item from the selected teams
+                        selectedTeams = selectedTeams.filter((team) => {
+                            team = domParser.parseFromString(team, 'text/html').body.firstChild;
+                            return team.getAttribute('data-team') !== selectedItem.getAttribute('data-team');
+                        });
+                        selectedItem.remove();
+                    });
                 });
-            });
+            }
         
         });
         

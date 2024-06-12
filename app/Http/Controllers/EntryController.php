@@ -17,7 +17,7 @@ class EntryController extends Controller
     public function create()
     {
 
-        $teams = Team::where('status', 'active')->get();
+        $teams = Team::where('status', 'active')->with('conferences')->get();
         $description = Setting::where('name', 'contest_description')->first();
         $description = $description ? $description->value : '';
 
@@ -29,45 +29,24 @@ class EntryController extends Controller
             ]
         )->get();
 
+        $teamsOtherConferences = Team::where('status', 'active')->whereHas('conferences', function($query){
+            // conference not in active conferences
+            $query->where('status', 'active');
+        })->get();
+
+        $otherTeams = Team::where('status', 'active')->whereDoesntHave('conferences', function($query){
+            // conference not in active conferences
+            $query->where('status', 'active');
+        })->get();
+
         return view('entry.create',
             [
-                'teams'             => $teams,
-                'activeConferences' => $activeConferences,
-                'description'       => $description
+                'teams'                 => $teams,
+                'activeConferences'     => $activeConferences,
+                'description'           => $description,
+                'teamsOtherConferences' => $teamsOtherConferences,
+                'otherTeams'            => $otherTeams
             ]);
-    }
-
-
-    /**
-     * 
-     * Show the create video form
-     * @return \Illuminate\View\View
-     * 
-     */
-    public function video()
-    {
-        return view('entry.video');
-    }
-
-
-    /**
-     * 
-     * Submit video
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * 
-     */
-    public function submitVideo(Request $request){
-            
-            $request->validate([
-                'g-recaptcha-response'  => ['required', new Recaptcha],
-                'video'                 => 'required|file|mimes:mp4,mov,avi,wmv,flv,webm|max:102400',
-            ]);
-    
-            $video = $request->file('video');
-            $video->store('videos');
-    
-            return redirect()->route('entry.create')->with('success', 'Video uploaded successfully');
     }
 
 
@@ -84,7 +63,9 @@ class EntryController extends Controller
             'g-recaptcha-response'  => ['required', new Recaptcha],
             'email'                 => 'required|email|max:255',
             'name'                  => 'required|string|max:255',
-            'phone'                 => 'required|string|max:255',           
+            'phone'                 => 'required|string|max:255',
+            'all'                   => 'required',
+            'other'                 => 'required',       
         ]);
 
         $entry = Entry::create([
@@ -92,6 +73,66 @@ class EntryController extends Controller
             'name'  => $request->name,
             'phone' => $request->phone
         ]);
+
+        // Process all teams
+        $all = $request->all;
+        $all = explode(',', $all);
+        foreach($all as $allTeam){
+            $allTeam = Team::findOrFail($allTeam);
+            $entry->teams()->create([
+                'team_id' => $allTeam->team,
+                'conference' => 'all'
+            ]);
+        }
+
+        // Process all other teams
+        $other = $request->other;
+        $other = explode(',', $other);
+        foreach($other as $otherTeam){
+            $otherTeam = Team::findOrFail($otherTeam);
+            $entry->teams()->create([
+                'team_id' => $otherTeam->team,
+                'conference' => 'other'
+            ]);
+        }
+
+        if($request->ACC){
+            $entry->teams()->create([
+                'team_id' => $request->ACC,
+                'conference' => 'ACC'
+            ]);
+        }
+
+        if($request->B12){
+            $entry->teams()->create([
+                'team_id' => $request->B12,
+                'conference' => 'B12'
+            ]);
+        }
+
+        if($request->B1G){
+            $entry->teams()->create([
+                'team_id' => $request->B1G,
+                'conference' => 'B1G'
+            ]);
+        }
+
+
+        if($request->PAC){
+            $entry->teams()->create([
+                'team_id' => $request->PAC,
+                'conference' => 'PAC'
+            ]);
+        }
+
+
+        if($request->SEC){
+            $entry->teams()->create([
+                'team_id' => $request->SEC,
+                'conference' => 'SEC'
+            ]);
+        }
+
 
         // Send a verification code using twilio and the entered phone number
         //Twilio::sendVerificationCode($request->phone);
