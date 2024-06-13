@@ -41,4 +41,5 @@ class Team extends CustomModel implements HasMedia
         return $media;
     }
 
+
 }

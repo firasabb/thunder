@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('entry_team', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('entry_id')->nullable();
             $table->unsignedBigInteger('team_id')->nullable();
             $table->string('conference')->nullable();

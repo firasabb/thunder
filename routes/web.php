@@ -46,8 +46,9 @@ Route::prefix('entry')->as('entry.')->group(function () {
     Route::post('/create', [EntryController::class, 'store'])->name('store');
     Route::get('/video', [EntryController::class, 'video'])->name('video');
     Route::get('/verify/{entry?}', [EntryController::class, 'verify'])->name('verify');
-    Route::get('/verify/{entry?}/store', [EntryController::class, 'verifyEntry'])->name('verify.store');
+    Route::post('/verify/{entry?}/store', [EntryController::class, 'verifyEntry'])->name('verify.store');
     Route::get('/success/{entry?}', [EntryController::class, 'success'])->name('success');
+    Route::get('/pdf/{entry?}', [EntryController::class, 'entryToPDF'])->name('pdf');
 });
 
 require __DIR__.'/auth.php';

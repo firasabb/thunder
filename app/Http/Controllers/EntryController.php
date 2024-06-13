@@ -10,6 +10,9 @@ use App\Rules\Recaptcha;
 use App\Services\TwilioHandler as Twilio;
 use Owenoj\LaravelGetId3\GetId3;
 use App\Models\Entry;
+use App\Models\VerificationCode;
+use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EntryController extends Controller
 {
@@ -135,7 +138,7 @@ class EntryController extends Controller
 
 
         // Send a verification code using twilio and the entered phone number
-        //Twilio::sendVerificationCode($request->phone);
+        Twilio::sendVerificationCode($request->phone);
 
         return redirect()->route('entry.verify', ['entry' => $entry->uuid]);
     }
@@ -195,6 +198,13 @@ class EntryController extends Controller
     public function success($uuid){
         $entry = Entry::where('uuid', $uuid)->first();
         return view('entry.success', ['entry' => $entry]);
+    }
+
+
+    public function entryToPdf($uuid){
+        $entry = Entry::where('uuid', $uuid)->with('teams')->firstOrFail();
+        $pdf = PDF::loadView('entry.pdf', ['entry' => $entry]);
+        return $pdf->download('entry.pdf');
     }
 
 }

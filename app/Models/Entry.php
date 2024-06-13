@@ -41,4 +41,14 @@ class Entry extends CustomModel implements HasMedia
     public function verificationCode(){
         return $this->hasOne(VerificationCode::class);
     }
+
+
+    /**
+     * 
+     * Entry Teams
+     * 
+     */
+    public function teams(){
+        return $this->hasMany(EntryTeam::class);
+    }
 }

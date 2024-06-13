@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EntryTeam extends CustomModel implements HasMedia
 {
     use HasFactory,
-        InteractsWithMedia,
-        SoftDeletes;
+        InteractsWithMedia;
 
 
     protected $fillable = [
@@ -21,6 +19,7 @@ class EntryTeam extends CustomModel implements HasMedia
         'conference',
     ];
 
+    protected $table = 'entry_team';
 
     /**
      * Get the entry that owns the team.
