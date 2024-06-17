@@ -6,8 +6,23 @@
                     <div class="mb-5">
                         <img class="mx-auto w-36 h-auto lg:w-48" src="{{ asset('images/logo.png') }}" alt="Road to Jansanity" />
                     </div>
-                    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Welcome to Road to Jansanity</h1>
-                    <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">The competition will start in August. <span class="text-blue-600 font-bold">Subscribe</span> to learn more!</p>
+                    <h1 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl dark:text-white">Welcome to the Road to Jansanity $1 Million Dollar Playoff Challenge!</h1>
+                    <p class="mb-8 text-md font-normal text-gray-500 md:text-lg sm:px-16 lg:px-48 dark:text-gray-200 text-left">
+                        For the first time ever college football has a legitimate end of season tournament.      
+                        <br>
+                        12 Teams will earn their spot to compete for the chance to play on January 20th in the National Championship and be crowned National Champion.
+                        <br>
+                        <br>
+                        We call this new season of fun <span class="text-blue-600 font-bold">Jansanity</span>!
+                        <br>
+                        <br>
+                        To celebrate this epic evolution of the college football playoff season, we created a way for you to get involved and have a chance to win $1 Million.
+                        <br>
+                        <br>
+                        <span class="font-bold">What’s the Challenge?</span>
+                        <br>
+                        Pick the 12 teams that will enter the college football playoffs (no specific order or seed) and pick the eventual National Champion and you win <span class="text-blue-600 font-bold">$1 Million</span>.
+                    </p>
                     <form class="w-full max-w-md mx-auto">   
                         <label for="default-email" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Subscribe</label>
                         <div class="relative">
@@ -17,7 +32,7 @@
                                     <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
                                 </svg>
                             </div>
-                            <input type="email" id="default-email" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your email here..." required />
+                            <input type="email" id="default-email" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your email..." required />
                             <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Subscribe</button>
                         </div>
                         <p id="success" class="mt-2 text-sm text-green-600 dark:text-green-500 hidden"><span class="font-medium">Awesome!</span> You will receive from us soon!</p>
