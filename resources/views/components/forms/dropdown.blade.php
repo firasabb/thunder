@@ -10,6 +10,9 @@
     <div class="mb-10">
         <x-forms.dropdown-input :teams="$otherTeams" title="Choose 8 Teams from All Teams" multiple="true" input-name="all" />
     </div>
+    <div class="mb-10">
+        <x-forms.dropdown-input :teams="$otherTeams" title="Choose the Championship Winner" input-name="winner" />
+    </div>
     <script>
         // JavaScript to toggle the dropdown
         var dropdownGroups = document.querySelectorAll('.dropdown-group');

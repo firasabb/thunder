@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('welcome_pending');
+})->name('landing');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -32,6 +32,7 @@ Route::get('/dashboard', function () {
  */
 Route::get('/page/{url}', [PageController::class, 'show'])->name('page.show');
 Route::post('/page/contact-us', [PageController::class, 'contact'])->name('page.contact');
+Route::post('/subscribe', [PageController::class, 'subscribe'])->name('subscribe');
 
 
 Route::middleware('auth')->group(function () {

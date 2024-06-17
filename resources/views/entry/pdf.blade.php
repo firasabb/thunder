@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
             body {
-                background-image: url('/public/images/home-1.jpg');
+                background-image: url('/images/home-1.jpg');
                 background-size: cover;
             }
         </style>
@@ -26,7 +26,7 @@
                     @if(isset($entryTeam->team) && $entryTeam->team)
                         <div class="col-md-4">
                             <div class="card mb-4">
-                                <img src="{{ $entryTeam->team->featured }}" class="card-img-top" alt="Product Image">
+                                <img src="{{ $entryTeam->team->featured_url }}" class="card-img-top" alt="Product Image">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $entryTeam->conference }}</h5>
                                     <p class="card-text">{{ $entryTeam->team->name }}</p>
