@@ -4,24 +4,28 @@
             <section class="">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
                     <div class="mb-5">
-                        <img class="mx-auto w-36 h-auto lg:w-48" src="{{ asset('images/logo.png') }}" alt="Road to Jansanity" />
+                        <img class="mx-auto w-48 h-auto lg:w-64" src="{{ asset('images/logo.png') }}" alt="Road to Jansanity" />
                     </div>
                     <h1 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl dark:text-white">Welcome to the Road to Jansanity $1 Million Dollar Playoff Challenge!</h1>
                     <p class="mb-8 text-md font-normal text-gray-500 md:text-lg sm:px-16 lg:px-48 dark:text-gray-200 text-left">
                         For the first time ever college football has a legitimate end of season tournament.      
                         <br>
-                        12 Teams will earn their spot to compete for the chance to play on January 20th in the National Championship and be crowned National Champion.
+                        12 Teams will earn their spot to compete for the chance to play on January 20th in the National Championship.
                         <br>
                         <br>
                         We call this new season of fun <span class="text-blue-600 font-bold">Jansanity</span>!
                         <br>
                         <br>
-                        To celebrate this epic evolution of the college football playoff season, we created a way for you to get involved and have a chance to win $1 Million.
-                        <br>
+                        We created a way for you to get involved and have a chance to win $1 Million.                        <br>
                         <br>
                         <span class="font-bold">What’s the Challenge?</span>
                         <br>
-                        Pick the 12 teams that will enter the college football playoffs (no specific order or seed) and pick the eventual National Champion and you win <span class="text-blue-600 font-bold">$1 Million</span>.
+                        1) Pick the 12 teams that will enter the college football playoffs (no specific order or seed).
+                        <br>
+                        2) Pick the team that will come out on top and be the National Champion.
+                        <br>
+                        <br>
+                        Offer your email to be one of the first to be notified when the contest goes live!
                     </p>
                     <form class="w-full max-w-md mx-auto">   
                         <label for="default-email" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Subscribe</label>
