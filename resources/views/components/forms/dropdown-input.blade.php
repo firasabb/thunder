@@ -1,6 +1,6 @@
 <div class="">
     @php
-        if($multiple == 'true'){
+        if(isset($multiple) && $multiple == 'true'){
             $multiple = 'multiple';
         } else {
             $multiple = '';
@@ -40,14 +40,16 @@
             <!-- Search input -->
             <input id="search-input" class="search-input block w-full px-4 py-2 text-gray-800 border rounded-md  border-gray-300 focus:outline-none" type="text" placeholder="Search items" autocomplete="off">
             <!-- Dropdown content goes here -->
-            @foreach($teams as $team)
-                <button type="button" class="item-button block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md" data-team="{{$team->id}}">
-                    @if($team->logo_url)
-                        <img src="{{ $team->logo_url }}" class="w-5 h-5 inline-block mr-2">
-                    @endif
-                    <span>{{ $team->name }}</span>
-                </button>
-            @endforeach
+            @isset($teams)
+                @foreach($teams as $team)
+                    <button type="button" class="item-button block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md" data-team="{{$team->id}}">
+                        @if($team->logo_url)
+                            <img src="{{ $team->logo_url }}" class="w-5 h-5 inline-block mr-2">
+                        @endif
+                        <span>{{ $team->name }}</span>
+                    </button>
+                @endforeach
+            @endisset
 
             @if(isset($conference))
                 <input class="teams_input" type="hidden" name="{{ $conference->abbreviation }}" value="">

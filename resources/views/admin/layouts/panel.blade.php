@@ -36,7 +36,7 @@
             <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                 <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <a href="{{ url('/') }}" class="flex items-center ps-2.5 mb-5">
-                        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Thunder Rebel</span>
+                        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Panel</span>
                     </a>
                     <ul class="space-y-2 font-medium">
                         <li>
@@ -71,6 +71,14 @@
                                     <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z"/>
                                 </svg>  
                                 <span class="flex-1 ms-3 whitespace-nowrap">{{ __('admin.support messages') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.subscribers.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M7 2a2 2 0 0 0-2 2v1a1 1 0 0 0 0 2v1a1 1 0 0 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H7Zm3 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm-1 7a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3 1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+                                </svg>  
+                                <span class="flex-1 ms-3 whitespace-nowrap">{{ __('admin.subscribers') }}</span>
                             </a>
                         </li>
                         <li>

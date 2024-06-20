@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminSupportMessageController;
 use App\Http\Controllers\Admin\AdminMediaController;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminEntryController;
+use App\Http\Controllers\Admin\AdminSubscriberController;
 
 /**
  *
@@ -58,6 +59,13 @@ Route::prefix('admin/dashboard')->middleware(['auth', 'role:admin'])->as('admin.
         Route::post('/search', [AdminSupportMessageController::class, 'search'])->name('search');
     });
 
+
+    // Admin / Subscribers
+
+    Route::prefix('subscribers')->as('subscribers.')->group(function () {
+        Route::get('/list/{order?}/{desc?}', [AdminSubscriberController::class, 'index'])->name('index');
+    });
+    
 
     // Admin / Entries
 

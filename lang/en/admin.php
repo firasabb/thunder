@@ -86,6 +86,8 @@ return [
     'setting'                           =>      'Setting',
     'entries'                           =>      'Entries',
     'entry'                             =>      'Entry',
+    'subscribers'                       =>      'Subscribers',
+    'created at'                        =>      'Created at',
 
     // Long texts
     'create page'                       =>      'Create Page',

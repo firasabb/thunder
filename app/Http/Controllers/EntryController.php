@@ -204,7 +204,7 @@ class EntryController extends Controller
     public function entryToPdf($uuid){
         $entry = Entry::where('uuid', $uuid)->with('teams')->firstOrFail();
         $pdf = PDF::loadView('entry.pdf', ['entry' => $entry]);
-        return $pdf->download('entry.pdf');
+        return $pdf->stream();
     }
 
 }

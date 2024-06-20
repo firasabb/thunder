@@ -11,11 +11,14 @@
         <x-forms.dropdown-input :teams="$otherTeams" title="Choose 8 Teams from All Teams" multiple="true" input-name="all" />
     </div>
     <div class="mb-10">
-        <x-forms.dropdown-input :teams="$otherTeams" title="Choose the Championship Winner" input-name="winner" />
+        <x-forms.dropdown-input title="Choose the Championship Winner" multiple="" input-name="winner" />
     </div>
+
     <script>
         // JavaScript to toggle the dropdown
+        var allSelectedTeams = [];
         var dropdownGroups = document.querySelectorAll('.dropdown-group');
+        var winnerInput = document.querySelector('input[name="winner"]');
         var domParser = new DOMParser();
 
         dropdownGroups.forEach((group) => {
@@ -59,7 +62,6 @@
             items.forEach((item) => {
                 item.addEventListener('click', () => {
 
-                    console.log('clicked');
                     // get the team id from the data tag
                     let teamId = item.getAttribute('data-team');
                     
@@ -102,6 +104,7 @@
                         teamsInput.value = teamId;
                         toggleDropdown();
                     }
+                    AddRemoveAllSelectedItems(item);
                     selectedItemsOnClick();
                 });
             });
@@ -126,11 +129,46 @@
                             team = domParser.parseFromString(team, 'text/html').body.firstChild;
                             return team.getAttribute('data-team') !== selectedItem.getAttribute('data-team');
                         });
+
+                        // remove the item from all selected teams
+                        allSelectedTeams = allSelectedTeams.filter((team) => {
+                            team = domParser.parseFromString(team, 'text/html').body.firstChild;
+                            return team.getAttribute('data-team') !== selectedItem.getAttribute('data-team');
+                        });
+                        AddRemoveAllSelectedItems(selectedItem);
                         selectedItem.remove();
                     });
                 });
             }
-        
+
+
+            // Add or remove the item from all selected teams
+            function AddRemoveAllSelectedItems(item){
+                if(allSelectedTeams.includes(item.outerHTML)){
+                    allSelectedTeams = allSelectedTeams.filter((team) => {
+                        return team !== item.outerHTML;
+                    });
+                } else {
+                    allSelectedTeams.push(item.outerHTML);
+                }
+                updateWinnerInput();
+            }
+
+
+            function updateWinnerInput(){
+
+                winnerInput.value = allSelectedTeams.map((team) => {
+                    team = domParser.parseFromString(team, 'text/html').body.firstChild;
+                    // clear all buttons from the team parent
+                    parent = team.parentNode;
+                    parent.querySelectorAll('.item-button').forEach((button) => {
+                        button.remove();
+                    });
+                    // add the team before the input
+                    winnerInput.before(team);
+                    return team.getAttribute('data-team');
+                }).join(',');
+            }
         });
         
 

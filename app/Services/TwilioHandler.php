@@ -24,12 +24,9 @@ class TwilioHandler{
         try{
             $response = Twilio::message($phone, $message);
         } catch(\Exception $e){
-            dd($e);
             return null;
         }
-
         return $response;
-
     }
 
 
