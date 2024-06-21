@@ -1,93 +1,34 @@
-@extends('admin.layouts.panel')
-
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{$message->id}}</div>
-
-                <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="" class="edit-form-confirm">
-                        {!! csrf_field() !!}
-                        {!! method_field('PUT') !!}
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <input class="form-control enabled-disabled" type="text" name="email"  value="{{ $message->email }}" disabled/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <input class="form-control enabled-disabled" type="text" name="name"  value="{{ $message->name }}" disabled/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <input class="form-control enabled-disabled" type="text" name="phone"  value="{{ $message->phone }}" disabled/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <input class="form-control enabled-disabled" type="text" name="subject"  value="{{ $message->subject }}" disabled/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <textarea class="form-control enabled-disabled" name="body" disabled>{{ $message->body }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col submit-btn-roles">
-                                <button type="submit" class="btn btn-primary submit-edit-btn enabled-disabled" disabled>{{ __('admin.submit') }}</button>
-                            </div>
-                        </div>
-                        <div class="row info-row">
-                            <div class="col">
-                                <h5>{{ __('admin.Created at') }}:</h1>
-                                <p>{{ $message->created_at }}</p>
-                                <h5>{{ __('admin.Updated at') }}:</h1>
-                                <p>{{ $message->updated_at }}</p>
-                            </div>
-                        </div>
-                    </form>
+<x-admin-layout>
+    <div>
+        <div class="p-4 sm:ml-64">
+            <h2 class="mb-6 text-xl">{{ __('admin.support message') . ' #' . $message->id }}</h2>
+            <div class="w-full">
+                <div class="mb-4">
+                    <span class="text-2xl font-semibold">{{ $message->subject }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="text-sm font-semibold">{{ __('admin.email') }}:</span>
+                    <span class="text-sm">{{ $message->email }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="text-sm font-semibold">{{ __('admin.phone') }}:</span>
+                    <span class="text-sm">{{ $message->phone }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="text-sm font-semibold">{{ __('admin.created at') }}:</span>
+                    <span class="text-sm">{{ $message->created_at }}</span>
+                </div>
+                <div class="mb-4">
+                    <label for="body" class="block text-sm font-medium text-gray-700 dark:text-gray-200">{{ __('admin.body') }}</label>
+                    <textarea
+                        name="body"
+                        id="body"
+                        rows="15"
+                        class="disabled mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">{{ $message->body }}</textarea>
                 </div>
             </div>
-
-            <div class="block-button">
-                <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-success btn-lg" id="edit-button">{{ __('admin.edit') }}</button>
-                    <form action="{{ route('admin.delete.message', ['id' => $message->id]) }}" method="POST" class="delete-form-2 delete-form-confirm">
-                        {!! csrf_field() !!}
-                        {!! method_field('DELETE') !!}
-                        <button type="submit" class="btn btn-danger btn-lg">{{ __('admin.delete') }}</button>
-                    </form>
-                </div>
-            </div>
-
         </div>
     </div>
-</div>
-@endsection
+
+    
+</x-admin-layout>

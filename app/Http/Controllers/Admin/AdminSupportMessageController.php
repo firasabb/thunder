@@ -54,7 +54,7 @@ class AdminSupportMessageController extends Controller
     public function show($id)
     {
         $message = SupportMessage::findOrFail($id);
-        return view('admin.messages.show', ['status' => $message]);
+        return view('admin.messages.show', ['message' => $message]);
     }
 
     
@@ -67,7 +67,7 @@ class AdminSupportMessageController extends Controller
     {
         $message = SupportMessage::findOrFail($id);
         $message->delete();
-        return redirect()->route('admin.index.messages')->with('status', 'A message has been deleted!');
+        return redirect()->route('admin.messages.index')->with('success', 'Message deleted successfully');
     }
 
 

@@ -67,6 +67,7 @@ return [
     'option value'                      =>      'Option Value',
     'existing options'                  =>      'Existing Options',
     'preview'                           =>      'Preview',
+    'view'                              =>      'View',
     'draft'                             =>      'Draft',
     'published'                         =>      'Published',
     'featured'                          =>      'Featured',
@@ -88,6 +89,9 @@ return [
     'entry'                             =>      'Entry',
     'subscribers'                       =>      'Subscribers',
     'created at'                        =>      'Created at',
+    'phone'                             =>      'Phone',
+    'support messages'                  =>      'Support Messages',
+    'support message'                   =>      'Support Message',
 
     // Long texts
     'create page'                       =>      'Create Page',

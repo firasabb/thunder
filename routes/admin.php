@@ -54,7 +54,7 @@ Route::prefix('admin/dashboard')->middleware(['auth', 'role:admin'])->as('admin.
     Route::prefix('messages')->as('messages.')->group(function () {
         Route::get('/list/{order?}/{desc?}', [AdminSupportMessageController::class, 'index'])->name('index');
         Route::post('/create', [AdminSupportMessageController::class, 'filter'])->name('filter');
-        Route::delete('/message/{id}', [AdminSupportMessageController::class, 'delete'])->name('delete');
+        Route::delete('/message/{id}', [AdminSupportMessageController::class, 'destroy'])->name('delete');
         Route::get('/message/{id}', [AdminSupportMessageController::class, 'show'])->name('show');
         Route::post('/search', [AdminSupportMessageController::class, 'search'])->name('search');
     });
