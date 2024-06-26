@@ -65,7 +65,6 @@
                     // get the team id from the data tag
                     let teamId = item.getAttribute('data-team');
                     
-                    console.log(item.parentElement.classList);
                     // Check if the item is in the dropdown or in the button
                     if(item.parentElement.classList.contains('select-dropdown-btn')) {
                         // find the item in the selectedTeams by teamid and remove it
@@ -146,6 +145,8 @@
             function AddRemoveAllSelectedItems(item){
                 if(allSelectedTeams.includes(item.outerHTML)){
                     allSelectedTeams = allSelectedTeams.filter((team) => {
+                        teamDom = domParser.parseFromString(team, 'text/html').body.firstChild;
+                        itemDom = domParser.parseFromString(item.outerHTML, 'text/html').body.firstChild;
                         return team !== item.outerHTML;
                     });
                 } else {
@@ -157,17 +158,25 @@
 
             function updateWinnerInput(){
 
+                // Clear all the selected items in the winner input
+                let winnerDropdown = winnerInput.parentElement;
+                let winnerItems = winnerDropdown.querySelectorAll('.item-button');
+                if(winnerItems.length > 0){
+                    winnerItems.forEach((item) => {
+                        item.remove();
+                    });
+                }
+
                 winnerInput.value = allSelectedTeams.map((team) => {
                     team = domParser.parseFromString(team, 'text/html').body.firstChild;
-                    // clear all buttons from the team parent
-                    parent = team.parentNode;
-                    parent.querySelectorAll('.item-button').forEach((button) => {
-                        button.remove();
-                    });
-                    // add the team before the input
-                    winnerInput.before(team);
                     return team.getAttribute('data-team');
                 }).join(',');
+
+                // remove all the teams from the dropdown and add the selected teams
+                allSelectedTeams.forEach((team) => {
+                    team = domParser.parseFromString(team, 'text/html').body.firstChild;
+                    winnerInput.before(team);
+                });
             }
         });
         
