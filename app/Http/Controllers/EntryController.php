@@ -62,25 +62,23 @@ class EntryController extends Controller
         $entry = Entry::where('uuid', $entry)->firstOrFail();
         $conference = $request->conference;
         $teams = json_decode($request->teams);
+
+        // check if entry teams exist
+        $entryTeams = $entry->teams()->where('conference', $conference);
+        if($entryTeams->first()){
+            $entryTeams->delete();
+        }
+
         if($conference == 'ACC' || $conference == 'B12' || $conference == 'B1G' || $conference == 'PAC' || $conference == 'SEC'){
 
             $teams = Team::whereIn('uuid', $teams)->whereHas('conferences', function($query) use ($conference){
                 $query->where('abbreviation', $conference);
             })->get();
+
             $entry->teams()->createMany($teams->map(function($team) use ($conference){
                 return [
                     'team_id' => $team->id,
                     'conference' => $conference
-                ];
-            })->toArray());
-
-        } else if($conference == 'all') {
-
-            $teams = Team::whereIn('uuid', $teams)->get();
-            $entry->teams()->createMany($teams->map(function($team){
-                return [
-                    'team_id' => $team->id,
-                    'conference' => 'other'
                 ];
             })->toArray());
 
@@ -91,6 +89,16 @@ class EntryController extends Controller
                 return [
                     'team_id' => $team->id,
                     'conference' => 'other'
+                ];
+            })->toArray());
+
+        } else if($conference == 'all') {
+
+            $teams = Team::whereIn('uuid', $teams)->get();
+            $entry->teams()->createMany($teams->map(function($team){
+                return [
+                    'team_id' => $team->id,
+                    'conference' => 'all'
                 ];
             })->toArray());
 
@@ -140,7 +148,7 @@ class EntryController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'g-recaptcha-response'  => ['required', new Recaptcha],
+            //'g-recaptcha-response'  => ['required', new Recaptcha],
             'email'                 => 'required|email|max:255',
             'name'                  => 'required|string|max:255',
             'phone'                 => 'required|string|max:255',

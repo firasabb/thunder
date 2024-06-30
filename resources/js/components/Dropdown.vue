@@ -11,9 +11,14 @@
                 <button v-for="selectedTeam in selectedTeams" :key="selectedTeam.id"
                     @click="unselectTeam(selectedTeam)"
                     type="button" 
-                    class="item-button block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md" data-team="{{$selectedTeam->id}}">
+                    class="relative item-button block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md" data-team="{{$selectedTeam->id}}">
                     <img :src="selectedTeam.logo_url" class="w-5 h-5 inline-block mr-2">
                     <span>{{ selectedTeam.name }}</span>
+                    <span class="absolute top-0 right-0">
+                        <svg class="w-4 h-4 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z" clip-rule="evenodd"/>
+                        </svg>
+                    </span>
                 </button>
             </div>
 
@@ -180,6 +185,8 @@ export default {
                 this.selectedTeams.push(team);
                 this.closeDropdown();
                 this.postTeams();
+            } else {
+                return;
             }
             team.hidden = true;
             team.selected = true;
