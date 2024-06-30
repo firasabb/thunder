@@ -32,24 +32,101 @@ class EntryController extends Controller
             ]
         )->get();
 
-        $teamsOtherConferences = Team::where('status', 'active')->whereHas('conferences', function($query){
-            // conference not in active conferences
-            $query->where('status', 'active');
-        })->get();
-
-        $otherTeams = Team::where('status', 'active')->whereDoesntHave('conferences', function($query){
-            // conference not in active conferences
-            $query->where('status', 'active');
-        })->get();
+        // create an entry
+        $entry = new Entry();
+        $entry->save();
 
         return view('entry.create',
             [
                 'teams'                 => $teams,
                 'activeConferences'     => $activeConferences,
                 'description'           => $description,
-                'teamsOtherConferences' => $teamsOtherConferences,
-                'otherTeams'            => $otherTeams
+                'entry'                 => $entry->uuid
             ]);
+    }
+
+
+    /**
+     * 
+     * Store the entry teams temporarily
+     * 
+     */
+    public function storeTemporarily(Request $request, $entry = ''){
+
+        $request->validate([
+            'conference'    => 'nullable|string|max:255|in:ACC,B12,B1G,PAC,SEC,all,other,winner',
+            'teams'         => 'required|string'
+        ]);
+
+        // Create or find the entry
+        $entry = Entry::where('uuid', $entry)->firstOrFail();
+        $conference = $request->conference;
+        $teams = json_decode($request->teams);
+        if($conference == 'ACC' || $conference == 'B12' || $conference == 'B1G' || $conference == 'PAC' || $conference == 'SEC'){
+
+            $teams = Team::whereIn('uuid', $teams)->whereHas('conferences', function($query) use ($conference){
+                $query->where('abbreviation', $conference);
+            })->get();
+            $entry->teams()->createMany($teams->map(function($team) use ($conference){
+                return [
+                    'team_id' => $team->id,
+                    'conference' => $conference
+                ];
+            })->toArray());
+
+        } else if($conference == 'all') {
+
+            $teams = Team::whereIn('uuid', $teams)->get();
+            $entry->teams()->createMany($teams->map(function($team){
+                return [
+                    'team_id' => $team->id,
+                    'conference' => 'other'
+                ];
+            })->toArray());
+
+        } else if($conference == 'other') {
+
+            $teams = Team::whereIn('uuid', $teams)->get();
+            $entry->teams()->createMany($teams->map(function($team){
+                return [
+                    'team_id' => $team->id,
+                    'conference' => 'other'
+                ];
+            })->toArray());
+
+        } else if($conference == 'winner'){
+
+            $teams = Team::whereIn('uuid', $teams)->get();
+            $entry->teams()->createMany($teams->map(function($team){
+                return [
+                    'team_id' => $team->id,
+                    'conference' => 'winner'
+                ];
+            })->toArray());
+
+        }
+
+    }
+
+
+    /**
+     * 
+     * Get the temporary entry
+     * 
+     */
+    public function getEntryTeams($entry = ''){
+        $entry = Entry::where('uuid', $entry)->with('teams')->firstOrFail();
+        $entryTeams = $entry->teams;
+        $teams = [];
+        foreach($entryTeams as $entryTeam){
+            $team = Team::findOrFail($entryTeam->team_id);
+            $teams[] = $team;
+        }
+        // order the teams by name
+        usort($teams, function($a, $b){
+            return $a->name <=> $b->name;
+        });
+        return response()->json($teams);
     }
 
 
@@ -67,75 +144,26 @@ class EntryController extends Controller
             'email'                 => 'required|email|max:255',
             'name'                  => 'required|string|max:255',
             'phone'                 => 'required|string|max:255',
-            'all'                   => 'required',
-            'other'                 => 'required',       
+            'entry'                 => 'required|string'     
         ]);
 
-        $entry = Entry::create([
-            'email' => $request->email,
-            'name'  => $request->name,
-            'phone' => $request->phone
-        ]);
+        $entry = Entry::where('uuid', $request->entry)->firstOrFail();
+        $entry->email = $request->email;
+        $entry->name = $request->name;
+        $entry->phone = $request->phone;
+        $entry->save();
 
-        // Process all teams
-        $all = $request->all;
-        $all = explode(',', $all);
-        foreach($all as $allTeam){
-            $allTeam = Team::findOrFail($allTeam);
-            $entry->teams()->create([
-                'team_id' => $allTeam->team,
-                'conference' => 'all'
-            ]);
+        // validate the entry inputs
+        $entry->teams()->where('conference', 'winner')->firstOrFail();
+        $entry->teams()->where('conference', 'other')->firstOrFail();
+        $entry->teams()->where('conference', 'ACC')->firstOrFail();
+        $entry->teams()->where('conference', 'B12')->firstOrFail();
+        $entry->teams()->where('conference', 'B1G')->firstOrFail();
+        $entry->teams()->where('conference', 'SEC')->firstOrFail();
+        $entry->teams()->where('conference', 'all')->get();
+        if($entry->teams->count() < 8){
+            return back()->with('error', 'Please select 8 teams');
         }
-
-        // Process all other teams
-        $other = $request->other;
-        $other = explode(',', $other);
-        foreach($other as $otherTeam){
-            $otherTeam = Team::findOrFail($otherTeam);
-            $entry->teams()->create([
-                'team_id' => $otherTeam->team,
-                'conference' => 'other'
-            ]);
-        }
-
-        if($request->ACC){
-            $entry->teams()->create([
-                'team_id' => $request->ACC,
-                'conference' => 'ACC'
-            ]);
-        }
-
-        if($request->B12){
-            $entry->teams()->create([
-                'team_id' => $request->B12,
-                'conference' => 'B12'
-            ]);
-        }
-
-        if($request->B1G){
-            $entry->teams()->create([
-                'team_id' => $request->B1G,
-                'conference' => 'B1G'
-            ]);
-        }
-
-
-        if($request->PAC){
-            $entry->teams()->create([
-                'team_id' => $request->PAC,
-                'conference' => 'PAC'
-            ]);
-        }
-
-
-        if($request->SEC){
-            $entry->teams()->create([
-                'team_id' => $request->SEC,
-                'conference' => 'SEC'
-            ]);
-        }
-
 
         // Send a verification code using twilio and the entered phone number
         Twilio::sendVerificationCode($request->phone);

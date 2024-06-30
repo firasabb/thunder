@@ -65,14 +65,26 @@
                     </div>
                     
                     <div class="mb-5">
-                        <h1 class="text-lg font-semibold text-gray-600">Select your Teams:</h1>
+                        <h1 class="text-lg font-semibold text-gray-600 mb-3">Select your Teams:</h1>
+                        <p class="text-sm text-gray-500">The new 12-team playoff includes the five highest-ranked conference champions, who will receive automatic bids,
+                            and the next seven highest-ranked programs. There is no limit on the number of participants from a single
+                            conference. 
+                            <br>
+                            <br>
+                            So to make your picks you will pick 5 conference champions and 7 teams who you feel will have
+                            the best records based on championships won, strength of schedule, head-to-head competition (if it occurred),
+                            and comparative outcomes of common opponents to set the rankings.
+                            <br> 
+                            <br>
+                            Good Luck!
+                            <br>
+                            <br>
+                        </p>
                     </div>
 
                     <x-forms.dropdown 
-                        :teams="$teams"
-                        :otherTeams="$otherTeams"
-                        :conferences="$activeConferences" 
-                        :teamsOtherConferences="$teamsOtherConferences"></x-forms.dropdown>
+                        :conferences="$activeConferences"
+                        :entry="$entry"></x-forms.dropdown>
 
                     <!-- RECAPTCHA -->
                     <div class="my-4">
@@ -82,6 +94,7 @@
                     <div class="my-5">
                         <button class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Submit</button>
                     </div>
+                    <input type="hidden" name="entry" value="{{ $entry }}">
                 </form>
             </div>
         </div>

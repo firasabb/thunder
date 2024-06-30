@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\EntryController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,11 +46,17 @@ Route::middleware('auth')->group(function () {
 Route::prefix('entry')->as('entry.')->group(function () {
     Route::get('/create', [EntryController::class, 'create'])->name('create');
     Route::post('/create', [EntryController::class, 'store'])->name('store');
+    Route::post('/create/temp/{entry?}', [EntryController::class, 'storeTemporarily'])->name('store.temp');
+    Route::get('/teams/{entry?}', [EntryController::class, 'getEntryTeams'])->name('teams');
     Route::get('/video', [EntryController::class, 'video'])->name('video');
     Route::get('/verify/{entry?}', [EntryController::class, 'verify'])->name('verify');
     Route::post('/verify/{entry?}/store', [EntryController::class, 'verifyEntry'])->name('verify.store');
     Route::get('/success/{entry?}', [EntryController::class, 'success'])->name('success');
     Route::get('/pdf/{entry?}', [EntryController::class, 'entryToPDF'])->name('pdf');
+});
+
+Route::prefix('teams')->as('teams.')->group(function () {
+    Route::get('/conference/{conference?}', [TeamController::class, 'getConferenceTeams'])->name('conference');
 });
 
 require __DIR__.'/auth.php';

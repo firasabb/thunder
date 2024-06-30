@@ -24,7 +24,8 @@ class Team extends CustomModel implements HasMedia
 
     protected $appends = [
         'featured',
-        'featured_url'
+        'featured_url',
+        'hidden'
     ];
 
     /**
@@ -48,6 +49,10 @@ class Team extends CustomModel implements HasMedia
             $url = $this->getFirstMedia('featured')->getUrl();
         }
         return $url;
+    }
+
+    public function getHiddenAttribute(){
+        return '';
     }
 
 }

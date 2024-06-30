@@ -56,6 +56,7 @@
                 <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
                     @php
                         $entryTeams = $entry->teams()->get();
+                        $otherIndex = 1;
                     @endphp
                     @foreach($entryTeams as $entryTeam)
                         @if(isset($entryTeam->team) && $entryTeam->team)
@@ -69,7 +70,14 @@
                                             {{ $entryTeam->team->name }}
                                         </p>
                                         <p class="text-sm text-gray-500 truncate dark:text-gray-400 pb-2">
-                                            {{ $entryTeam->conference }}
+
+                                            @if($entryTeam->conference == 'winner')
+                                                <span class="text-blue-400 font-bold">Winner</span>
+                                            @elseif($entryTeam->conference == 'other')
+                                                <span class="text-indigo-400">{{ $otherIndex++ }} of 8</span>
+                                            @else
+                                                {{ $entryTeam->conference }}
+                                            @endif
                                         </p>
                                     </div>
                                 </div>
