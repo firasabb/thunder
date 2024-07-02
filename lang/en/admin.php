@@ -92,6 +92,9 @@ return [
     'phone'                             =>      'Phone',
     'support messages'                  =>      'Support Messages',
     'support message'                   =>      'Support Message',
+    'confirmation code'                 =>      'Confirmation Code',
+    'download pdf'                      =>      'Download PDF',
+    'verified at'                       =>      'Verified at',
 
     // Long texts
     'create page'                       =>      'Create Page',

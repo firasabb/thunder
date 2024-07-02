@@ -109,6 +109,22 @@
                 <x-util.toast id="toast-default" text="{{ isset($status) ? $status : '' }}" />
             </div>
         </div>
+
+        <script type="module">
+            // any button with the class "delete-btn" will trigger a confirmation dialog
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const form = button.closest('form');
+                    const message = button.getAttribute('data-message') || 'Are you sure you want to delete this item?';
+                    if (confirm(message)) {
+                        form.submit();
+                    }
+                });
+            });
+        </script>
+
         @stack('footer_scripts')
     </body>
 </html>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Page;
+use App\Models\Entry;
 use Validator;
 use URL;
 use Illuminate\Support\Str;
@@ -32,10 +32,10 @@ class AdminEntryController extends Controller
                 }
             }
             if($desc){
-                $entries = Page::orderBy($defaultOrder, 'desc');
+                $entries = Entry::whereNotNull('verified_at')->orderBy($defaultOrder, 'desc');
             }
             if(!$desc){
-                $entries = Page::orderBy($defaultOrder, 'asc');
+                $entries = Entry::whereNotNull('verified_at')->orderBy($defaultOrder, 'asc');
             }
 
         }
@@ -151,14 +151,14 @@ class AdminEntryController extends Controller
 
 
     /**
-     * Show a page for admins.
+     * Show a entry for admins.
      * @param int $id
      * @return View
      */
     public function show($id)
     {
-        $page = Page::findOrFail($id);
-        return view('admin.pages.show', ['page' => $page]);
+        $entry = Entry::findOrFail($id);
+        return view('admin.entries.show', ['entry' => $entry]);
     }
 
 

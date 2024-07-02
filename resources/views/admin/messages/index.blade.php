@@ -38,7 +38,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="font-medium text-red-600 dark:text-red-500 hover:underline">{{ __('admin.delete') }}</button>
+                                        class="delete-btn font-medium text-red-600 dark:text-red-500 hover:underline">{{ __('admin.delete') }}</button>
                                 </form>
                             </td>
                         </tr>

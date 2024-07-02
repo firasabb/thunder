@@ -32,7 +32,7 @@ class AdminController extends Controller
         $totalUserCount = User::count();
         $totalPageCount = Page::count();
         $totalMessageCount = SupportMessage::count();
-        $totalEntryCount = Entry::count();
+        $totalEntryCount = Entry::whereNotNull('verified_at')->count();
 
         $lastMessages = SupportMessage::orderBy('id', 'desc')->take(10)->get();
 

@@ -169,8 +169,8 @@ class EntryController extends Controller
         $entry->teams()->where('conference', 'B1G')->firstOrFail();
         $entry->teams()->where('conference', 'SEC')->firstOrFail();
         $entry->teams()->where('conference', 'all')->get();
-        if($entry->teams->count() < 8){
-            return back()->with('error', 'Please select 8 teams');
+        if($entry->teams->count() < 7){
+            return back()->with('error', 'Please select 7 teams');
         }
 
         // Send a verification code using twilio and the entered phone number

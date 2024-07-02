@@ -15,19 +15,14 @@ class TeamController extends Controller
         if($conference && $conference != 'all'){
 
             $conference = Conference::where('abbreviation', $conference)->firstOrFail();
-            $teams = $conference->teams;
+            $teams = $conference->teams()->orderBy('name')->get();
 
         } else if($conference == 'all'){
 
-            $teams = Team::where('status', 'active')->whereHas('conferences', function($query){
-                $query->where('status', 'active');
-            })->get();
+            $teams = Team::where('status', 'active')->has('conferences')->get();
         }
         else {
-
-            $teams = Team::where('status', 'active')->whereDoesntHave('conferences', function($query){
-                $query->where('status', 'active');
-            })->get();
+            $teams = Team::where('status', 'active')->get();
         }
 
         return response()->json($teams);

@@ -173,10 +173,10 @@ export default {
 
         selectTeam(team){
             if(this.multiple){
-                if(this.selectedTeams.length < 8){
+                if(this.selectedTeams.length < 7){
                     this.selectedTeams.push(team);
                 }
-                if(this.selectedTeams.length >= 8){
+                if(this.selectedTeams.length >= 7){
                     this.closeDropdown();
                     this.postTeams();
                 }

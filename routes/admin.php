@@ -71,8 +71,8 @@ Route::prefix('admin/dashboard')->middleware(['auth', 'role:admin'])->as('admin.
 
     Route::prefix('entries')->as('entries.')->group(function () {
         Route::get('/list/{order?}/{desc?}', [AdminEntryController::class, 'index'])->name('index');
-        Route::delete('/message/{id}', [AdminEntryController::class, 'delete'])->name('delete');
-        Route::get('/message/{id}', [AdminEntryController::class, 'show'])->name('show');
+        Route::delete('/entry/{id}', [AdminEntryController::class, 'delete'])->name('delete');
+        Route::get('/entry/{id}', [AdminEntryController::class, 'show'])->name('show');
         Route::post('/search', [AdminEntryController::class, 'search'])->name('search');
     });
 

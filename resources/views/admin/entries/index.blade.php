@@ -31,7 +31,7 @@
                                 {{ $entry->created_at }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('admin.entries.show', ['id' => $page->id]) }}"
+                                <a href="{{ route('admin.entries.show', ['id' => $entry->id]) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                             </td>
                         </tr>

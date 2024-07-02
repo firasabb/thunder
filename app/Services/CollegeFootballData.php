@@ -4,6 +4,8 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Conference;
+use App\Models\Team;
 
 class CollegeFootballData{
 
@@ -93,4 +95,66 @@ class CollegeFootballData{
 
         return false;
     }
+
+
+    
+
+    /**
+     * 
+     * Read from ESPN API
+     * 
+     */
+    public static function getEspnTeamsAndConferences(){
+
+        $url = 'https://site.web.api.espn.com/apis/v2/sports/football/college-football/standings?region=us&lang=en&contentorigin=espn&group=80&level=3&sort=leaguewinpercent%3Adesc%2Cvsconf_wins%3Adesc%2Cvsconf_gamesbehind%3Aasc%2Cvsconf_playoffseed%3Aasc%2Cwins%3Adesc%2Closses%3Adesc%2Cplayoffseed%3Aasc%2Calpha%3Aasc&startingseason=2004';
+
+        $result = Http::get($url);
+
+        // read json, loop through 'children', standings, entries, team
+        $conferences = $result->json()['children'];
+
+        foreach($conferences as $conferenceJson){
+
+            switch($conferenceJson['name']){
+                case 'Atlantic Coast Conference':
+                    $conference = Conference::where('abbreviation', 'ACC')->first();
+                    break;
+                case 'Big 12 Conference':
+                    $conference = Conference::where('abbreviation', 'B12')->first();
+                    break;
+                case 'Big Ten Conference':
+                    $conference = Conference::where('abbreviation', 'B1G')->first();
+                    break;
+                case 'Southeastern Conference':
+                    $conference = Conference::where('abbreviation', 'SEC')->first();
+                    break;
+                default:
+                    // put the default conference as PAC-12 for now
+                    $conference = Conference::where('abbreviation', 'PAC')->first();
+                    break;
+            }
+
+            
+            if(isset($conferenceJson['children'])){
+                foreach($conferenceJson['children'] as $division){
+                    foreach($division['standings']['entries'] as $team){
+                        // find the team from the database and update the conference_id
+                        $dbTeam = Team::where('abbreviation', $team['team']['abbreviation'])->first();
+                        if($dbTeam){
+                            $dbTeam->conferences()->sync($conference->id);
+                        }
+                    }
+                }
+            } else {
+                foreach($conferenceJson['standings']['entries'] as $team){
+                    // find the team from the database and update the conference_id
+                    $dbTeam = Team::where('abbreviation', $team['team']['abbreviation'])->first();
+                    if($dbTeam){
+                        $dbTeam->conferences()->sync($conference->id);
+                    }
+                }
+            }
+        }
+    }
+
 }
