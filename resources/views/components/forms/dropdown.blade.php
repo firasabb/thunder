@@ -17,14 +17,14 @@
     <div class="mb-10">
         <dropdown 
             title="Choose a Team from All Conferences"
-            get-teams-route="{{ route('teams.conference', ['conference' => 'all']) }}"
+            get-teams-route="{{ route('teams.conference') }}"
             post-teams-route="{{ $postTeamsRoute }}"
             input-name="other"/>
     </div>
     <div class="mb-10">
         <dropdown 
             title="Choose 8 Teams from All Teams"
-            get-teams-route="{{ route('teams.conference') }}"
+            get-teams-route="{{ route('teams.conference', ['conference' => 'all']) }}"
             post-teams-route="{{ $postTeamsRoute }}"
             conference="" 
             multiple="true" 
