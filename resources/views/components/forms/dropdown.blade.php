@@ -23,7 +23,7 @@
     </div>
     <div class="mb-10">
         <dropdown 
-            title="Choose 8 Teams from All Teams"
+            title="Choose 7 Teams from All Teams"
             get-teams-route="{{ route('teams.conference', ['conference' => 'all']) }}"
             post-teams-route="{{ $postTeamsRoute }}"
             conference="" 

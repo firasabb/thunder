@@ -13,28 +13,6 @@
 
             <div class="mb-10">
                 {!! $description !!}
-
-                <!-- Errors -->
-                @if ($errors->any())
-                    <div class="max-w-4xl mx-auto">
-                        <div class="bg-red-50 border-l-8 border-red-900">
-                            <div class="flex items-center">
-                                <div class="p-2">
-                                    <div class="flex items-center">
-                                        <p class="px-6 py-4 text-red-900 font-semibold text-lg">Please fix the
-                                            following
-                                            errors.</p>
-                                    </div>
-                                    <div class="px-16 mb-4">
-                                        @foreach ($errors->all() as $error)
-                                            <li class="text-md font-bold text-red-500 text-sm">{{ $error }}</li>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
             </div>
 
 

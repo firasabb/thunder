@@ -19,13 +19,15 @@ class TeamController extends Controller
 
         } else if($conference == 'all'){
 
-            $teams = Team::where('status', 'active');
+            $teams = Team::whereHas('conferences', function($query){
+                $query->whereIn('abbreviation', ['ACC', 'B12', 'B1G', 'SEC', 'PAC']);
+            });
         }
         else {
             // get the teams where the conferences are not acc, big12, big10, sec
-            $teams = Team::where('status', 'active')->whereHas('conferences', function($query){
+            $teams = Team::whereHas('conferences', function($query){
                 $query->where('abbreviation', 'PAC');
-            });
+            })->whereNotIn('id', [184, 768, 562]);
         }
 
         $teams = $teams->orderBy('name')->get();
