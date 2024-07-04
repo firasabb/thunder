@@ -16,14 +16,15 @@
     @endforeach
     <div class="mb-10">
         <dropdown 
-            title="Choose a Team from All Conferences"
+            title="Choose a Conference Champion from All Other Conferences"
             get-teams-route="{{ route('teams.conference') }}"
             post-teams-route="{{ $postTeamsRoute }}"
             input-name="other"/>
     </div>
     <div class="mb-10">
         <dropdown 
-            title="Choose 7 Teams from All Teams"
+            title="Choose 7 Additional Teams You Think Will Have The Best Chance to be Selected for The 12 Team Playoff"
+            second-title="Choose 7 Additional Teams"
             get-teams-route="{{ route('teams.conference', ['conference' => 'all']) }}"
             post-teams-route="{{ $postTeamsRoute }}"
             conference="" 
@@ -32,7 +33,7 @@
     </div>
     <div class="mb-10">
         <dropdown 
-            title="Choose the Championship Winner"
+            title="Choose the National Championship Winner"
             post-teams-route="{{ $postTeamsRoute }}"
             get-entry-teams-route="{{ $getEntryTeamsRoute }}"
             input-name="winner"/>

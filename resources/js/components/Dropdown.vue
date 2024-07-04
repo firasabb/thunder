@@ -2,7 +2,7 @@
     <div class="">
         <div>
             <span v-if="title" class="mr-2 text-sm font-medium">{{ title }}</span>
-            <span v-else class="mr-2 text-sm font-medium">Choose {{ conferenceJson.abbreviation }} Team</span>
+            <span v-else class="mr-2 text-sm font-medium">Choose {{ conferenceJson.abbreviation }} Conference Champion</span>
         </div>
 
         <div class="relative group dropdown-group">
@@ -25,7 +25,8 @@
             <button @click="openDropdown" type="button"
                 class="select-dropdown-btn inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
                     
-                <span v-if="title" class="mr-2">{{ title }}</span>
+                <span v-if="secondTitle" class="mr-2">{{ secondTitle }}</span>
+                <span v-else-if="title" class="mr-2">{{ title }}</span>
                 <span v-else class="mr-2">Choose {{ conferenceJson.abbreviation }} Team</span>
                 
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -68,6 +69,10 @@ export default {
 
     props: {
         title: {
+            type: String,
+            default: ''
+        },
+        secondTitle:{
             type: String,
             default: ''
         },
@@ -118,7 +123,14 @@ export default {
                 axios.get(route)
                     .then(response => {
                         console.log(response.data);
-                        this.teams = response.data;
+                        let teams = response.data;
+                        // loop through teams and remove repeated teams
+                        teams = teams.filter((team, index, self) =>
+                            index === self.findIndex((t) => (
+                                t.uuid === team.uuid
+                            ))
+                        );
+                        this.teams = teams;
                     })
                     .catch(error => {
                         console.log(error);
@@ -162,7 +174,9 @@ export default {
 
         openDropdown() {
             this.dropdown.classList.toggle('hidden');
+            // Get the selected teams from the previous selections
             if(this.getEntryTeamsRoute){
+                this.selectedTeams = [];
                 this.getTeams(this.getEntryTeamsRoute);
             }
         },

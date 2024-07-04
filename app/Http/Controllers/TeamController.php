@@ -22,6 +22,7 @@ class TeamController extends Controller
             $teams = Team::whereHas('conferences', function($query){
                 $query->whereIn('abbreviation', ['ACC', 'B12', 'B1G', 'SEC', 'PAC']);
             });
+
         }
         else {
             // get the teams where the conferences are not acc, big12, big10, sec
@@ -31,6 +32,9 @@ class TeamController extends Controller
         }
 
         $teams = $teams->orderBy('name')->get();
+
+        // remove duplicates
+        $teams = $teams->unique('uuid');
 
         return response()->json($teams);
     }

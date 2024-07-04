@@ -66,7 +66,9 @@ class EntryController extends Controller
         // check if entry teams exist
         $entryTeams = $entry->teams()->where('conference', $conference);
         if($entryTeams->first()){
-            $entryTeams->delete();
+            $entryTeams->each(function ($entry, $key) {
+                $entry->delete();
+            });
         }
 
         if($conference == 'ACC' || $conference == 'B12' || $conference == 'B1G' || $conference == 'PAC' || $conference == 'SEC'){
