@@ -74,7 +74,7 @@
                                             @if($entryTeam->conference == 'winner')
                                                 <span class="text-blue-400 font-bold">Winner</span>
                                             @elseif($entryTeam->conference == 'all')
-                                                <span class="text-indigo-400">{{ $otherIndex++ }} of 8</span>
+                                                <span class="text-indigo-400">{{ $otherIndex++ }} of 7</span>
                                             @elseif($entryTeam->conference == 'other')
                                                 <span class="text-gray-500">All Other Conferences</span>
                                             @else

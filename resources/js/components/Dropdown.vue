@@ -2,7 +2,7 @@
     <div class="">
         <div>
             <span v-if="title" class="mr-2 text-sm font-medium">{{ title }}</span>
-            <span v-else class="mr-2 text-sm font-medium">Choose {{ conferenceJson.abbreviation }} Conference Champion</span>
+            <span v-else class="mr-2">Choose {{ (conferenceJson.abbreviation == 'ACC' || conferenceJson.abbreviation == 'SEC') ?  conferenceJson.abbreviation : conferenceJson.name }} Conference Champion</span>
         </div>
 
         <div class="relative group dropdown-group">
@@ -27,7 +27,7 @@
                     
                 <span v-if="secondTitle" class="mr-2">{{ secondTitle }}</span>
                 <span v-else-if="title" class="mr-2">{{ title }}</span>
-                <span v-else class="mr-2">Choose {{ conferenceJson.abbreviation }} Team</span>
+                <span v-else class="mr-2">Choose {{ (conferenceJson.abbreviation == 'ACC' || conferenceJson.abbreviation == 'SEC') ?  conferenceJson.abbreviation : conferenceJson.name }} Conference Champion</span>
                 
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
