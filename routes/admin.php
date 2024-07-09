@@ -74,6 +74,7 @@ Route::prefix('admin/dashboard')->middleware(['auth', 'role:admin'])->as('admin.
         Route::delete('/entry/{id}', [AdminEntryController::class, 'delete'])->name('delete');
         Route::get('/entry/{id}', [AdminEntryController::class, 'show'])->name('show');
         Route::post('/search', [AdminEntryController::class, 'search'])->name('search');
+        Route::post('/export/txt', [AdminEntryController::class, 'exportTxt'])->name('export.txt');
     });
 
 

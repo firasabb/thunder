@@ -41,6 +41,15 @@
             <div>
                 {{ $entries->links() }}
             </div>
+            <div class="m-5">
+                <form action="{{ route('admin.entries.export.txt') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Export
+                    </button>
+                </form>
+            </div>
         </div>
     <div>
     

@@ -9,6 +9,7 @@ use Validator;
 use URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Response;
 
 class AdminEntryController extends Controller
 {
@@ -270,6 +271,54 @@ class AdminEntryController extends Controller
             return $this->adminIndex();
         }
         return $this->adminIndex('', false, $pages);
+    }
+
+
+
+    public function exportTxt(){
+
+        $entries = Entry::whereNotNull('verified_at')->get();
+        $text = '';
+        foreach($entries as $entry){
+            $email = $entry->email;
+            $entryTeams = $entry->teams;
+            $text = '"' . $email . '",' . $entry->created_at . ', ';
+            $all = 0;
+            foreach($entryTeams as $entryTeam){
+                $team = $entryTeam->team;
+                $city = $team->city;
+                $state = $team->state;
+                $conference = $entryTeam->conference;
+                $teamText = "$team->name-$team->city-$team->state";
+                switch($conference){
+                    case 'all':
+                        $all++;
+                        if($all > 1){
+                            $text .= "$all- $teamText, ";
+                        } else {
+                            $text .= "All: $all- $teamText, ";
+                        }
+                        break;
+                    case 'winner':
+                        $text .= "Winner: $teamText.";
+                        break;
+                    default:
+                        $text .= "$conference: $teamText, ";
+                        break;
+                }
+            }
+            $text .= PHP_EOL;
+        }
+
+        // file name: YYYYMMDD
+        $fileName = date('Ymd') . '.txt';
+
+        // make a response, with the text, a 200 response code and the headers
+        return Response::make($text, 200, [
+            'Content-type' => 'text/plain', 
+            'Content-Disposition' => sprintf('attachment; filename="%s"', $fileName),
+            'Content-Length' => strlen($text)
+        ]);
     }
 
 }
