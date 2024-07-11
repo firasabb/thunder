@@ -282,10 +282,13 @@ class AdminEntryController extends Controller
         foreach($entries as $entry){
             $email = $entry->email;
             $entryTeams = $entry->teams;
-            $text = '"' . $email . '",' . $entry->created_at . ', ';
+            $text .= '"' . $email . '",' . $entry->created_at . ', ';
             $all = 0;
             foreach($entryTeams as $entryTeam){
                 $team = $entryTeam->team;
+                if(!$team){
+                    continue;
+                }
                 $city = $team->city;
                 $state = $team->state;
                 $conference = $entryTeam->conference;

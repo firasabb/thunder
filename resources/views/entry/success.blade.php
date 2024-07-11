@@ -12,10 +12,10 @@
                 <div class="mt-5">
                     <div>
                         <p class="text-gray-700 text-sm mb-5">
-                            Thank you for submitting your entry to the Road To Jansanity $1 Million Playoff Challenge!
+                            Thank you for submitting your entry to the Road To Jansanity $1 Million Playoff Challenge. Good Luck!
                             <br>
                             <span class="text-gray-900 font-bold">Your confirmation number is: {{ $entry->confirmation_code }}</span></p>
-                        <p class="text-gray-700 text-sm mb-5">The confirmation number has been also sent to your email. Please keep this number for your records.</p>
+                        <p class="text-gray-700 text-sm mb-5">Feel free to download or screenshot your entries summary for records.</p>
                         <div class="mt-10">
                             <a href="{{ route('entry.pdf', ['entry' => $entry->uuid]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Confirmation File</a>
                         </div>

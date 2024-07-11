@@ -150,7 +150,7 @@ class EntryController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            //'g-recaptcha-response'  => ['required', new Recaptcha],
+            'g-recaptcha-response'  => ['required', new Recaptcha],
             'email'                 => 'required|email|max:255',
             'name'                  => 'required|string|max:255',
             'phone'                 => 'required|string|max:255',

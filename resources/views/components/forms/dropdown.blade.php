@@ -16,7 +16,7 @@
     @endforeach
     <div class="mb-10">
         <dropdown 
-            title="Choose a Conference Champion from All Other Conferences"
+            title="Choose ONE of these teams to win their conference"
             get-teams-route="{{ route('teams.conference') }}"
             post-teams-route="{{ $postTeamsRoute }}"
             input-name="other"/>
