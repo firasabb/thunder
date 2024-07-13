@@ -7,8 +7,8 @@
 <x-app-layout>
     <div class="flex justify-center items-center py-5">
         <div class="container mx-auto w-100 w-10/12 md:w-4/12">
-            <div class="mb-5">
-                <h1 class="text-2xl font-semibold text-gray-900">The Road To Jansanity $1 Million Playoff Challenge!</h1>
+            <div class="mb-10">
+                <img class="mx-auto w-48 h-auto lg:w-64 rounded-lg" src="{{ asset('images/logo.jpg') }}" alt="Road to Jansanity" />
             </div>
 
             <div class="mb-10">
