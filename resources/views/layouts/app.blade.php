@@ -5,6 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <!-- SEO -->
+        <meta name="description" content="Welcome to the Road to Jansanity $1 Million Dollar Playoff Challenge! Here's your chance to showcase your college football expertise and compete for $1 million dollars.">
+        <meta name="keywords" content="Jansanity25, Jansanity, College Football, $1 Million Dollar Playoff Challenge">
+        <meta name="robots" content="index, follow">
+        <meta property="og:title" content="Welcome to the Road to Jansanity $1 Million Dollar Playoff Challenge!">
+        <meta property="og:description" content="Here's your chance to showcase your college football expertise and compete for $1 million dollars.">
+        <meta property="og:image" content="{{ asset('images/logo.jpg') }}">
+        <meta property="og:url" content="{{ url('/') }}">
+
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->

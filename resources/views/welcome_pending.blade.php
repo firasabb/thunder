@@ -4,7 +4,7 @@
             <section class="">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
                     <div class="mb-10">
-                        <img class="mx-auto w-48 h-auto lg:w-64 rounded-lg" src="{{ asset('images/logo.jpg') }}" alt="Road to Jansanity" />
+                        <img class="mx-auto w-48 h-auto lg:w-96 rounded-lg" src="{{ asset('images/logo.jpg') }}" alt="Road to Jansanity" />
                     </div>
                     <h1 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl dark:text-white">Welcome to the Road to Jansanity $1 Million Dollar Playoff Challenge!</h1>
                     <p class="mb-8 text-md font-normal text-gray-500 md:text-lg sm:px-16 lg:px-48 dark:text-gray-200 text-left">
